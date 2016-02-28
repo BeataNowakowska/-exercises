@@ -1,4 +1,5 @@
-﻿import java.util.ArrayList;
+﻿package testingdojo;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -20,15 +21,16 @@ class RandomPasswordGenerator {
 }
 
 public class Example_6 {
+
 	private RandomPasswordGenerator randomPasswordGenerator = new RandomPasswordGenerator();
 
 	@Test
-	public void GetRandomPasswordReturnsEmptyStringForZeroLengthPassword() {
+	public void getRandomPasswordReturnsEmptyStringForZeroLengthPassword() {
 		randomPasswordGenerator.getRandomPassword(0, new ArrayList<Character>());
 	}
 
 	@Test
-	public void GetRandomPasswordReturnsDifferentLetterEachTime() {
+	public void getRandomPasswordReturnsDifferentLetterEachTime() {
 		// given
 		List<Character> alpthabet = Arrays.asList(new Character[] { 'a', 'b', 'c' });
 		boolean[] result = new boolean[alpthabet.size()];
@@ -40,7 +42,7 @@ public class Example_6 {
 
 		// then
 		for (int i = 0; i < result.length; i++) {
-			Assert.assertEquals(result[i], "Character " + alpthabet.get(i) + " not present");
+			Assert.assertTrue("Character " + alpthabet.get(i) + " not present",result[i]);
 		}
 
 	}

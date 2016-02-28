@@ -1,4 +1,6 @@
-﻿import java.util.ArrayList;
+﻿package testingdojo;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.Assert;

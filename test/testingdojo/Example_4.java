@@ -1,4 +1,5 @@
-﻿import java.io.IOException;
+﻿package testingdojo;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -10,12 +11,17 @@ import org.junit.Test;
 
 class DataIncorrectException extends Exception {
 
+	private static final long serialVersionUID = 1L;
+
 	public DataIncorrectException(String message) {
 		super(message);
 	}
 }
 
 class IncorrectKeyException extends Exception {
+	
+	private static final long serialVersionUID = 1L;
+
 	public IncorrectKeyException(String key) {
 		super("There is no " + key + " value in configuration file.");
 	}
@@ -26,7 +32,6 @@ class ConfigurationManager {
 	public static final String EXCEPTION_TWO_EQUAL_CHARACTERS = "Configuration file malformed. More then one \'=\' in line";
 	public static final String EXCEPTION_NO_EQUAL_CHARACTERS = "Configuration file malformed. No \'=\' in line";
 
-	private String[] testData;
 	private String configurationFilePath;
 	private Map<String, String> values = new HashMap<String, String>();
 
@@ -34,7 +39,7 @@ class ConfigurationManager {
 		this.configurationFilePath = configurationFilePath;
 	}
 
-	public void ReadConfiguration() throws IOException, DataIncorrectException {
+	public void readConfiguration() throws IOException, DataIncorrectException {
 		List<String> readedData = Files.readAllLines(Paths.get(configurationFilePath));
 
 		for (int i = 0; i < readedData.size(); i++) {
@@ -52,7 +57,7 @@ class ConfigurationManager {
 		}
 	}
 
-	public String GetValue(String key) throws IncorrectKeyException {
+	public String getValue(String key) throws IncorrectKeyException {
 		if (values.containsKey(key)) {
 			return values.get(key);
 		} else {
@@ -62,21 +67,21 @@ class ConfigurationManager {
 	}
 }
 
-class ConfigurationManagerTest {
+public class Example_4 {
 
 	@Test
-	public void ReadConfigurationCorrectLineWithLotsOfTabs()
+	public void readConfigurationCorrectLineWithLotsOfTabs()
 			throws IOException, DataIncorrectException, IncorrectKeyException {
 		// given
 		ConfigurationManager configurationFile = new ConfigurationManager("CorrectLineWithLotsOfTabs.txt");
 		// when
-		configurationFile.ReadConfiguration();
-		Assert.assertEquals("b", configurationFile.GetValue("a"));
+		configurationFile.readConfiguration();
+		Assert.assertEquals("b", configurationFile.getValue("a"));
 	}
 
 	@Test(expected = DataIncorrectException.class)
-	public void ReadConfigurationLineWithTwoEqualCharacters() throws IOException, DataIncorrectException {
+	public void readConfigurationLineWithTwoEqualCharacters() throws IOException, DataIncorrectException {
 		ConfigurationManager configurationFile = new ConfigurationManager("LineWithTwoTabs.txt");
-		configurationFile.ReadConfiguration();
+		configurationFile.readConfiguration();
 	}
 }

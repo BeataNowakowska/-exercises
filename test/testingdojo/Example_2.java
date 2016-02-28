@@ -1,6 +1,5 @@
-﻿import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+﻿package testingdojo;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
@@ -25,9 +24,7 @@ public class Example_2
 		private List<Integer> prepareExpectedResult(int startPoint, int length) {
 			ArrayList<Integer> source = new ArrayList<Integer>(test_size);
 
-            for (int i = 0; i < test_size; i++)
-            {
-            	if (i < startPoint || i > startPoint+length)
+            for (int i = startPoint; i < startPoint+length; i++) {
             		source.add(i);
             }
             return source;
@@ -38,15 +35,13 @@ public class Example_2
         {
             //given 
             List<Integer> l = prepareSource();
-
             for (int startPoint = 0; startPoint <= l.size() + 1; startPoint++)
             {
                 int maxLenght = l.size() - startPoint + 1;
-                for (int length = 0; length < maxLenght; length++ )
-                {
+                for (int length = 0; length < maxLenght; length++ ) {
                     List<Integer> expectedResult = prepareExpectedResult(startPoint,length);
                     //when
-                    List<Integer> result = l.subList(startPoint,length);
+                    List<Integer> result = l.subList(startPoint,startPoint+length);
                     //then
                     Assert.assertEquals(expectedResult,result);
                 }
